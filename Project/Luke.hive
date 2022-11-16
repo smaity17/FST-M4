@@ -1,0 +1,7 @@
+USE movie;
+CREATE TABLE Luke (name STRING, lines STRING) ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t';
+LOAD DATA LOCAL INPATH 'root/Soumen/episode4.txt' INTO TABLE Luke;
+CREATE TABLE totalcount AS SELECT COUNT(lines) FROM Luke WHERE lines LIKE '%Luke%';
+SELECT * FROM totalcount;
+INSERT OVERWRITE DIRECTORY '/user/Soumen/output/export' SELECT * FROM movie.totalcount;
+INSERT OVERWRITE LOCAL DIRECTORY 'root/output' SELECT * FROM movie.totalcount;
